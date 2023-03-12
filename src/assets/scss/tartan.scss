@@ -1,0 +1,167 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
+
+@function asSequence($colors) {
+    $sequence: [];
+
+    @for $n from 1 through length($colors) {
+        $colorItem: list.nth($colors, $n);
+        $size: map.get($colorItem, "size");
+        $color: map.get($colorItem, "color");
+        
+        @for $nn from 1 through $size {
+            $sequence: list.append($sequence, $color);
+        }
+    }
+    
+    $c: length($colors) - 1;
+    @while $c > 1 {
+        $colorItem: list.nth($colors, $c);
+        $size: map.get($colorItem, "size");
+        $color: map.get($colorItem, "color");
+        
+        @for $n from 1 through $size {
+           $sequence: list.append($sequence, $color);
+        }
+        $c: $c - 1;
+    }
+    @return $sequence;
+}
+
+@function moduleDiv($dividend, $divisor) {
+    $quotient: math.floor(math.div($dividend, $divisor));
+    $whole: $quotient * $divisor;
+    $division: $dividend - $whole;
+    @return $division;
+}
+
+@function isValidOffset($offsetX, $offsetY, $elementWidth, $elementHeight) {
+    @if $offsetX < $elementWidth and $offsetX > 0
+    and $offsetY < $elementHeight and $offsetY > 0
+    {
+        @return true;
+    }
+    @return false;
+}
+
+@function drawBox($boxX, $boxY, $boxWidth, $boxHeight, $elementWidth, $elementHeight, $seamSize, $fillStyle) {
+    $centerX: $boxWidth - $boxX;
+    $centerY: $boxHeight - $boxY;
+    $offsetX: $boxX + $centerX;
+    $offsetY: $boxY + $centerY;
+    $validOffset: isValidOffset($offsetX, $offsetY, $elementWidth, $elementHeight);
+    @if ($validOffset) {
+        $value: '#{$offsetX}px #{$offsetY}px 0px #{$seamSize}px #{$fillStyle}';
+        @return $value;
+    } @else {
+        @return false;
+    }
+}
+
+@function wFirstFill($x, $y, $elementWidth, $elementHeight, $seamSize, $fillStyle) {
+    $boxX: ($seamSize * $x - $y) * $seamSize;
+    $boxY: $y * $seamSize;
+    $boxWidth: $seamSize * $seamSize;
+    $boxHeight: $seamSize;
+    @return drawBox($boxX, $boxY, $boxWidth, $boxHeight, $elementWidth, $elementHeight, $seamSize, $fillStyle)
+}
+
+@function join($target, $separator, $endSymbol) {
+    $result: "";
+    $length: length($target);
+    @for $n from 1 through $length {
+        $result: $result + list.nth($target, $n);
+        @if $n != length($target) {
+            $result: $result + $separator;;
+        } @else{
+            $result: $result + $endSymbol;
+        }
+    }
+    @return $result;
+}
+
+
+@function draw($colors, $elementWidth, $elementHeight) {
+      
+    $seamSize: 2;
+    $offset: math.div($seamSize, 2);
+
+    $xEndConst: math.div($elementWidth, $seamSize);
+    $yEndConst: math.div($elementHeight, $seamSize);
+
+    $fillStyle: #fff;
+    $strokeStyle:  #0008;
+    $lineWidth: 1;
+    $halfLineWidth: math.div($lineWidth, 2);
+    $sequence: asSequence($colors);
+    
+    $boxShadow: [];
+
+    $yEnd: $yEndConst;
+    @for $y from 0 through $yEnd {
+        $dividend: $y;
+        $divisor: length($sequence);
+        $remainder: moduleDiv($dividend, $divisor);
+        $remainder: $remainder + 1;
+        $fillStyle: list.nth($sequence, $remainder);
+        
+        $x: 1; 
+        $xEnd: $xEndConst;
+        $xEnd: $xEnd + $y;
+
+        // @while $x < $xEnd {
+        //     $box: wFirstFill($x, $y, $elementWidth, $elementHeight, $seamSize, $fillStyle);    
+        //     @if ($box) {
+        //         $boxShadow: list.append($boxShadow, $box);
+        //     }
+
+        //     $boxX: ($x * $seamSize)  + $halfLineWidth;
+        //     $boxY: (2 * $y - $x + 2) * $seamSize + $halfLineWidth;
+        //     $offsetX: $boxX + $offset;
+        //     $offsetY: $boxY + $offset;
+        //     @if $offsetX < $elementWidth and $offsetX > 0 
+        //     and $offsetY < $elementHeight and $offsetY > 0
+        //     {
+        //         $box: drawBox($offsetX, $offsetY, 0, $strokeStyle);
+        //         $boxShadow: list.append($boxShadow, $box);
+        //     }
+
+        //     $x: $x + $shift;    
+        // }
+
+
+    
+    }
+    $boxShadow: join($boxShadow, ', ', ';');
+    //$boxShadow: list.join($boxShadow, (), $separator:';');
+    @return unquote($boxShadow);
+}
+
+
+$item1: ("color": #000, "size": 15);
+$item2: ("color": #949400, "size": 8);
+$item3: ("color": #023178, "size": 5);
+$colors: [];
+$colors: list.append($colors, $item1);
+$colors: list.append($colors, $item2);
+$colors: list.append($colors, $item3);
+
+//$sequence: asSequence($colors);
+//@debug $sequence;
+$box: 1px 1px -1px -1px #fff;
+@debug box;
+
+@function get-vw($target) { 
+    $vw-context: (1000*.01) * 1px;
+    @return math.div($target, $vw-context) * 1vw;
+}
+
+//$windowWidth: 100vh - 0px;
+//@debug $windowWidth;
+
+$tartan: 1px 1px 0 1 #000;//draw($colors, 400, 400);
+//@debug $tartan;
+    //@debug $do;
+
+//@debug $sequence;
