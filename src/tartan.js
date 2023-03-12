@@ -96,23 +96,24 @@ const draw = (canvas, colors) => {
 
   const sequence = asSequence(colors)
 
-  //for (let y = 0; y < 10; y++) {
-  for (let y = 0; y < canvasHeight / seamSize; y++) {    
+  for (let y = 0; y < 10; y++) {
+  //for (let y = 0; y < canvasHeight / seamSize; y++) {    
     ctx.fillStyle = sequence[y % sequence.length]
 
-    //for (let x = 0; x < 10; x += 2) {
-    for (let x = 0; x < canvasWidth / seamSize + y; x += seamSize) {
+    for (let x = 0; x < 10; x += 2) {
+    //for (let x = 0; x < canvasWidth / seamSize + y; x += seamSize) {
       if (x >= canvasWidth) continue
 
       const fl = wFirstFill(x, y, seamSize)
-      console.log(fl)
-      ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
+      //console.log(fl)
+      //ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
 
       const fs = wFirstStroke(x, y, seamSize, lineWidth, halfLineWidth)
+      console.log(fs)
       ctx.strokeRect(fs.x, fs.y, fs.width, fs.height)
 
       const sf = wSecondFill(x, y, seamSize, lineWidth, halfLineWidth)
-      ctx.fillRect(sf.x, sf.y, sf.width, sf.height)
+      //ctx.fillRect(sf.x, sf.y, sf.width, sf.height)
     }
   }
 
@@ -123,19 +124,19 @@ const draw = (canvas, colors) => {
       if (y >= canvasHeight) continue
 
       const fl = hFirstFill(x, y, seamSize)
-      ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
+      //ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
 
       const fs = hFirstStroke(x, y, seamSize, lineWidth, halfLineWidth)
-      ctx.strokeRect(fs.x, fs.y, fs.width, fs.height)
+      //ctx.strokeRect(fs.x, fs.y, fs.width, fs.height)
 
       const sf = hSecondFill(x, y, seamSize, halfLineWidth)
-      ctx.fillRect(sf.x, sf.y, sf.width, sf.height)
+      //ctx.fillRect(sf.x, sf.y, sf.width, sf.height)
 
       if (x % 4 == 0) {
          ctx.save()
-         ctx.fillStyle = "#fff3"
+         ctx.fillStyle = "#fffff3"
          const white = whiteFill(x, y, seamSize, lineWidth, halfLineWidth)
-         ctx.fillRect(white.x, white.y, white.width, white.height)
+         //ctx.fillRect(white.x, white.y, white.width, white.height)
          ctx.restore()
       }
     }
