@@ -9,7 +9,7 @@ const twoBrothers = [
   
   const royalStewart = [
     { color: "#FF0000", size: 50 },
-    { color: "blue", size: 10 },
+    { color: "#0000FF", size: 10 },
     { color: '#000000', size: 15 },
     { color: "yellow", size: 5 },
     { color: "#000000", size: 3 },
@@ -47,7 +47,7 @@ const twoBrothers = [
 
   const carellia = [
     {color:'#5a6041', size:13},
-    {color:'##070444', size:33},
+    {color:'#070444', size:33},
     {color:'#5a6041', size:4},
     {color:'#c1ec91', size:16},
     {color:'#023178', size:20},

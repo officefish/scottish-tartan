@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "html-react-parser": "^3.0.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-sortable": "^2.0.0"
+    "react-sortable": "^2.0.0",
+    "svg-builder": "^2.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

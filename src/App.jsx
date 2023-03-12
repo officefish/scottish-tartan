@@ -3,6 +3,7 @@ import ColorList from './components/ColorList'
 //import generator from './generator'
 import patterns from './patterns'
 import tartan from './tartan'
+import SVGBuilder from './common/svg/svg-builder'
 
 
 const pBLACK_WATCH = patterns.blackWatch
@@ -85,7 +86,7 @@ function App() {
   }
 
   useEffect(() => {
-    draw(colors)
+    //draw(colors)
   }, [colors])
 
   const toggleHidden = _ => {
@@ -96,6 +97,7 @@ function App() {
     <div className="app">
       <canvas id="tartan_canvas" className={`${ishidden && 'hidden'}`} ></canvas>
       <div className={`scottish ${!ishidden && 'hidden'}`}/>
+      <SVGBuilder  colors={colors} />
       <aside>
         <h1>Sequence</h1>
         <ColorList colors={colors}/>
