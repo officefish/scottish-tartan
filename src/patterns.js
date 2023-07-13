@@ -64,6 +64,16 @@ const twoBrothers = [
     {color:'#8ae5f0', size:5}
   ]
 
+  const newskiy = [
+    {color: '#d7e1e8', size:23},
+    {color: "#bd8c16", size:14},
+    {color: '#d7e1e8', size:9},
+    {color: '#0c2449', size:32},
+    {color: '#d7e1e8', size:39},
+    {color: '#bd8c16', size:15},
+    {color: '#d7e1e8', size:2}
+  ]
+
 export default {
     twoBrothers,
     royalStewart,
@@ -71,5 +81,6 @@ export default {
     macLeod,
     wallace,
     carellia,
-    carmaTail
+    carmaTail,
+    newskiy
 }

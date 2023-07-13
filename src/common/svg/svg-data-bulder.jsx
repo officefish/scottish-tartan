@@ -64,9 +64,11 @@ function hexToRgb(hex) {
       b: parseInt(result[3], 16)
     } : null;
 }
+
 function rgbToHex(r, g, b) {
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
 }
+
 function pasreColor(color) {
     if (color?.length && color.length === 4) 
         return hexToRgb(`#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`) 
@@ -75,6 +77,7 @@ function pasreColor(color) {
     }    
     return hexToRgb(color) 
 }
+
 const toTone = (color, tone) => {
     let rgb = pasreColor(color)
     if (!rgb) return color
@@ -97,8 +100,7 @@ export const getSvgData = (colors) => {
     const sequence = asSequence(colors)
     const seqLen = sequence.length
     const matrixLen = seqLen * 2
-    console.log(matrixLen)
-
+    
     const builder = svgBuilder.newInstance()
         .width(matrixLen)
         .height(matrixLen)

@@ -4,7 +4,7 @@ import ColorList from './components/ColorList'
 import patterns from './patterns'
 import tartan from './tartan'
 import SVGBuilder from './common/svg/svg-builder'
-
+import { randomPattern } from './random.pattern'
 
 const pBLACK_WATCH = patterns.blackWatch
 const pTWO_BROTHERS =  patterns.twoBrothers
@@ -33,6 +33,8 @@ function App() {
 
   const randomHandle = e => {
     e.preventDefault()
+    const colors = randomPattern()
+    fillColors(colors)
   }
 
   const draw = colors => {
@@ -97,7 +99,7 @@ function App() {
     <div className="app">
       <canvas id="tartan_canvas" className={`${ishidden && 'hidden'}`} ></canvas>
       <div className={`scottish ${!ishidden && 'hidden'}`}/>
-      <SVGBuilder  colors={colors} />
+      <SVGBuilder colors={colors} />
       <aside>
         <h1>Sequence</h1>
         <ColorList colors={colors}/>
@@ -105,6 +107,7 @@ function App() {
         <div className="spacer"></div>
         <button id="hiddenCanvas" onClick={toggleHidden}>Toggle hidden canvas</button>
         <button className="bg-white text-black" id="generate" onClick={generateHandle}>Generate tartan</button>
+        <button onClick={randomHandle}>random</button>
         <button onClick={handleRS}>Royal Stewart</button>
         <button onClick={handleTW}>Two Brothers</button>
         <button onClick={handleBW}>Black Watch</button>

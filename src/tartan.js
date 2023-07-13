@@ -106,11 +106,11 @@ const draw = (canvas, colors) => {
 
       const fl = wFirstFill(x, y, seamSize)
       //console.log(fl)
-      //ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
+      ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
 
       const fs = wFirstStroke(x, y, seamSize, lineWidth, halfLineWidth)
       console.log(fs)
-      ctx.strokeRect(fs.x, fs.y, fs.width, fs.height)
+      //ctx.strokeRect(fs.x, fs.y, fs.width, fs.height)
 
       const sf = wSecondFill(x, y, seamSize, lineWidth, halfLineWidth)
       //ctx.fillRect(sf.x, sf.y, sf.width, sf.height)
@@ -124,7 +124,7 @@ const draw = (canvas, colors) => {
       if (y >= canvasHeight) continue
 
       const fl = hFirstFill(x, y, seamSize)
-      //ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
+      ctx.fillRect(fl.x, fl.y, fl.width, fl.height)
 
       const fs = hFirstStroke(x, y, seamSize, lineWidth, halfLineWidth)
       //ctx.strokeRect(fs.x, fs.y, fs.width, fs.height)
